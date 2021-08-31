@@ -1,0 +1,562 @@
+BÁSICO
+
+“Ola, Mundo” program:
+
+
+
+fun ​ main(args: Array<String>) {
+
+println(​ "Hello, World"​ )
+
+}
+
+
+
+Declarando uma função:
+
+
+
+fun ​ sum(a: Int, b: Int): Int {
+
+}
+
+return ​ a + b
+
+
+
+Função de expressão única:
+
+
+
+fun ​ sum(a: Int, b: Int) = a + b
+
+
+
+
+
+Declarando variáveis:
+
+
+
+val ​ name = ​ ​ ”Kotlin” (OBS:​ A variável declarada com "val", não se modifica durante sua execução, diferente de var que pode começar com um valor e no final da execução, adquirir outro valor.
+
+var ​ age = ​ ​ 5
+
+
+
+Variáveis com tipos nulos:
+
+
+
+var ​ name: String? = ​ null
+
+val ​ length:Int
+
+length = name?.​ length​ ?:​ 0 ​ ​ // tamanho, ou 0 se name for null
+
+length = name?.​ length​ ?:​ return​ ​ // tamanho ou retorna se name for null
+
+length = name?.​ length​ ?:​ throw ​ Error() ​ // tamanho ou lança um erro se name for null
+
+
+
+
+
+CONTROLE DE FLUXO:
+
+
+
+If como uma expressão:
+
+fun ​ bigger(a: Int, b: Int) = ​ if ​ (a > b) a ​ else ​ b
+
+
+
+Para loop:
+
+val ​ list = ​ listOf(​ "A"​ , ​ "B"​ , ​ "C"​ )
+
+for ​ (element ​ in ​ list) {
+
+println(element)
+
+}
+
+
+
+Expressão When
+
+
+
+fun ​ numberTypeName(x: Number) = ​ when​ (x) {
+
+0 ​ -> ​ "Zero” ​ // Comparação de igualdade
+
+
+
+in ​ 1 ​ ..​ 4 ​ -> ​ "Four or less"
+
+
+
+// Range de comparação
+
+5​ , ​ 6 ​ , ​ 7 ​ -> ​ "Five to seven" // Comparação de múltiplos valores
+
+
+
+is ​ Byte -> ​ "Byte" // Comparação de tipo
+
+
+
+else ​ -> ​ "Some number"
+
+}
+
+
+
+Expressão When com predicados:
+
+
+
+fun ​ signAsString(x: Int)= ​ when ​ {
+
+x < ​ 0 ​ -> ​ "Negative"
+
+x == ​ 0 ​ -> ​ "Zero"
+
+else ​ -> ​ "Positive"
+
+}
+
+
+
+CLASSES
+
+
+
+Construtor primário:
+
+val declara uma variável de leitura. var é mutável. Ou seja, o valor da váriável pode ser alterada no decorrer da execução do programa.
+
+
+
+class ​ Person(​ val ​ name​ : String, ​ var a
+
+ge​ : Int)
+
+// name é apenas leitura, age é mutavel
+
+Herança
+
+open class ​ Person(​ val ​ name​ : String) {
+
+open fun ​ hello() = ​ "Hello, My ​ name is $name ​ "
+
+// Classes não podem ser estendidas por padrão, precisamos “open”
+
+}
+
+class ​TioBenPerson(name: String) : Person(name) {
+
+override fun ​ hello() = ​ "Com grande poder vem grande responsabilidade ​ $name​ "
+
+}
+
+
+
+Propriedades com funções
+
+
+
+class ​ Person(​ var ​ name​ : String, ​ var ​ surname​ : String) {
+
+var ​ fullName​ : String
+
+get​ () = "​ $name ​ $surname​ "
+
+set​ (value){
+
+val ​ (first, rest) = value.split(​ " "​ , ​ limit = ​ 2 ​ )
+
+name ​ = first
+
+surname ​ = rest
+
+}
+
+}
+
+
+
+Data classes
+
+
+
+data class ​ Person(​ val ​ name​ : String, ​ var ​ age​ : Int)
+
+val ​ mike = Person(​ "Mike"​ , ​ 23​ )
+
+Modificadores de ​ dados​ :
+
+
+
+1. toString​ ​ - exibe todas as propriedades primárias do construtor
+
+print(mike.toString()) ​ // Person(name=Mike, age=23)
+
+
+
+2. equals​ ​ - compara todas as propriedades do construtor principal
+
+print(mike == Person(​ "Mike"​ , ​ 23​ )) ​ // True
+
+print(mike == Person(​ "Mike"​ , ​ 21​ )) ​ // False
+
+
+
+3. hashCode​ ​ - baseado nas propriedades construtoras primárias
+
+val ​ hash = mike.hashCode()
+
+print(hash == Person(​ "Mike"​ , ​ 23​ ).hashCode()) ​ // True
+
+print(hash == Person(​ "Mike"​ , ​ 21​ ).hashCode()) ​ // False
+
+
+
+4. component1​ , ​ component2 ​ - permite desconstrução
+
+val ​ (name, age) = mike print(​ " ​ $ ​ name ​ $ ​ age​ " ​ ) ​ // Mike 23
+
+5. copy​ ​ - retorna cópia do objeto com propriedades concretas alteradas
+
+val ​ jake = mike.copy(​ name = ​ "Jake"​ )
+
+
+
+COLEÇÕES LITERAIS
+
+
+
+listOf( ​ 1 ​ , ​ 2 ​ , ​ 3 ​ , ​ 4 ​ ) ​ // List<Int>
+
+mutableListOf ( ​ ​ 1 ​ , ​ 2 ​ , ​ 3 ​ , ​ 4 ​ ) ​ // MutableList<Int>
+
+setOf ​ ( ​ "A"​ , ​ "B"​ , ​ "C"​ ) ​ // Set<String>
+
+mutableSetOf ​ ( ​ "A"​ , ​ "B"​ , ​ "C"​ ) ​ // MutableSet<String>
+
+arrayOf ​ ( ​ 'a'​ , ​ 'b'​ , ​ 'c'​ ) ​ // Array<Char>
+
+mapOf ( ​ ​ 1 ​ to ​ "A"​ , ​ 2 ​ to ​ "B"​ ) ​ // Map<Int, String>
+
+mutableMapOf ​ ( ​ 1 ​ to ​ "A"​ , ​ 2 ​ to ​ "B"​ ) ​ // MutableMap<Int, String>
+
+sequenceOf ( ​ ​ 4 ​ , ​ 3 ​ , ​ 2 ​ , ​ 1 ​ ) ​ // Sequence<Int>
+
+1 ​ to ​ "A" ​ // Pair<Int, String>
+
+List ​ ( ​ 4 ​ ) ​ { it * ​ 2 ​ } ​ // List<Int>
+
+generateSequence ( ​ ​ 4 ​ ) ​ { it + ​ 2 ​ } / ​ / Sequence<Int>
+
+
+
+PROCESSAMENTO DE COLEÇÕES
+
+
+
+students
+
+.filter ​ { it​ .passing ​ && ​ it​ .averageGrade ​ > ​ 4.0 ​ }
+
+// Apenas estudantes com averageGrade acima de 4.0
+
+.sortedByDescending { ​ it​ . ​ averageGrade ​ }
+
+// Começando com aqueles com notas maiores
+
+.take ​ ( ​10​ ) ​ // Primeiros 10
+
+.​sortedWith(compareBy ​ ( { ​ it​ .surname ​ } ​ , ​ { it​ .name ​ } ​ ))
+
+// Ordena pelo surname e name
+
+generateSequence ( ​ ​ 0 ​ ) ​ { it ​ + ​ 1 ​ }
+
+// Seqüência infinita dos próximos números que começam em 0
+
+.filter ​ { it ​ % ​ 2 ​ == ​ 0 ​ } ​ // Divisiveis por 2 com resultado exato
+
+.map ​ { it ​ * ​ 3 ​ } ​ // Multiplica por 3
+
+.take ( ​ ​ 100​ ) ​ // Primeiros 100
+
+.​average ​ () ​ // Média
+
+
+
+Funções mais importantes para processamento de coleções
+
+
+
+val ​ l = ​ listOf ​ ( ​ 1 ​ , ​ 2 ​ , ​ 3 ​ , ​ 4 ​ )
+
+
+
+filter ​ - retorna apenas elementos com divisão exata por 2
+
+l​.filter ​ { it ​ % ​ 2 ​ == ​ 0 ​ } ​ // [2, 4]
+
+
+
+map ​ - retorna elementos após a transformação
+
+l​.map ​ { it ​ * ​ 2 ​ } ​ // [2, 4, 6, 8]
+
+
+
+flatMap ​ - retorna elementos resultantes dos resultados de transformação
+
+
+
+l​.flatMap ​ { ​ listOf ( ​ ​ it​ , ​ it ​ + ​ 10​ ) ​ } ​ // [1, 11, 2, 12, 3, 13, 4, 14]
+
+
+
+fold/reduce ​ - Acumula elementos
+
+l.​fold ( ​ ​ 0.0​ ) ​ { ​ acc, i ​ -> ​ acc + i ​ } ​ // 10.0
+
+l.​reduce { ​ ​ acc, i ​ -> ​ acc * i ​ } ​ // 24
+
+
+
+forEach/onEach ​ - executa uma ação em cada elemento
+
+l.​forEach ​ { ​ print ( ​ ​ it​ ) ​ } ​ // Imprime 1234, retorna Unit
+
+l.onEach ​ { ​ print ​ ( ​ it​ ) ​ } ​ // Imprime 1234, retorna [1, 2, 3, 4]
+
+
+
+partition ​ - divide em par de listas
+
+
+
+val ​ (even, odd) = l.​ partition { ​ it ​ % ​ 2 ​ == ​ 0 ​ }
+
+print ( ​ even) ​ // [2, 4]
+
+print ( ​ odd) ​ // [1, 3]
+
+
+
+min/max/minBy/maxBy
+
+
+
+l​ .min ​ () ​ // 1, possível porque podemos comparar Int
+
+l.​minBy { ​ -it } ​ // 4
+
+
+
+l.​max ​ () ​ // 4, possible because we can compare Int
+
+l​.maxBy ​ { -it } ​ // 1
+
+
+
+first/firstBy
+
+
+
+l​.first ​ () ​ // 1
+
+l.​first { ​ it ​ % ​ 2 ​ == ​ 0 ​ } ​ // 2 (primeiro numero par)
+
+
+
+count ​ - elementos de contagem pares
+
+l.​count ​ { it ​ % ​ 2 ​ == ​ 0 ​ } ​ // 2
+
+
+
+sorted/sortedBy ​ - retorna uma coleção ordenada
+
+
+
+listOf(2,3,1,4).sorted() ​ // [1, 2, 3, 4]
+
+l.​sortedBy ​ { it ​ % ​ 2 ​ } ​ // [2, 4, 1, 3]
+
+
+
+groupBy ​ - elementos agrupados na coleção por chave
+
+l.​groupBy { ​ it ​ % ​ 2 ​ } ​ // Map: {1=[1, 3], 0=[2, 4]}
+
+
+
+distinct/distinctBy ​ - retorna elementos únicos
+
+
+
+listOf(1,1,2,2).distinct() ​ // [1, 2]
+
+
+
+Processamento de coleções Mutável e Não-mutável
+
+
+
+val ​ list = ​ mutableListOf ​ ( ​ 3 ​ , ​ 4 ​ , ​ 2 ​ , ​ 1 ) ​
+
+val ​ sortedResult = list.sorted() ​ // Retorna ordenado
+
+println ( ​ sortedResult) ​ // [1, 2, 3, 4]
+
+println ( ​ list) ​ // [3, 4, 2, 1]
+
+val ​ sortResult = list.sort() ​ // Ordena coleção mutavel
+
+println ( ​ sortResult) ​ // kotlin.Unit
+
+println ( ​ list) ​ // [1, 2, 3, 4]
+
+
+
+EXTENSÃO DE FUNÇÕES PARA OBJETOS
+
+}
+
+val ​ dialog = Dialog()​ .apply { ​
+
+title = ​ "Dialog title"
+
+onClick ​ { ​ print ​ ( ​ "Clicked"​ ) ​ }
+
+
+
+
+
+FUNÇÕES
+
+
+
+Tipos de funções
+
+
+
+()->Unit ​ - não aceita argumentos e não retorna nada (​ Unit​ ).
+
+(Int, Int)->Int ​ - pega dois argumentos do tipo ​ Int​ e retorna Int​.
+
+(()->Unit)->Int ​ - pega outra função e retorna ​ Int​ .
+
+(Int)->()->Unit ​ - leva argumento do tipo ​ Int ​ e retorna a função.
+
+
+
+Funções literais
+
+val ​ add: (Int, Int) -> Int = ​ { ​ i, j ​ -> ​ i + j ​ } ​ // Expressão lambda simples
+
+
+
+DELEGATES
+
+Lazy ​ - calcula o valor antes do primeiro uso
+
+val ​ i ​ by ​ lazy { ​ ​ print ( ​ ​ "init "​ ); ​ 10 ​ }
+
+print(i) ​ // Prints: init 10
+
+print(i) ​ // Prints: 10
+
+notNull ​ - retorna o último valor definido ou gera um erro se nenhum valor tiver
+
+sido definido
+
+observable/vetoable ​ - chama a função toda vez que o valor muda. Na função
+
+observable também decide se o novo valor deve ser definido.
+
+var ​ name ​ by ​ observable(​ "Unset"​ ) ​ { ​ p, old, new ​ ->
+
+println(​ " ​ ${​ p.​ name​ } ​ changed ​ $ ​ old ​ -> ​ $ ​ new​ " ​ )
+
+}
+
+name = ​ "Marcin" ​ // Imprime: name alterado de Unset -> Marcin
+
+val ​ printAndDouble: (Int) -> Int = ​ {
+
+println ( ​ ​ it​ ) ​ // Quando temos um único parâmetro, podemos referenciá-lo usando `it`
+
+it ​ * ​ 2 ​ // Em lambda, a última expressão é retornada
+
+}
+
+// Alternativa de função anônima
+
+val ​ printAndDoubleFun: (Int) -> Int = ​ fun​ (i: Int): Int {
+
+println ( ​ i) ​ // Argumento único não pode ser referenciado por `it`
+
+return ​ i * ​ 2 ​ // Precisa de retorno como qualquer função
+
+}
+
+val ​ i = printAndDouble(​ 10​ ) ​ // 10
+
+print ( ​ i) ​ // 20
+
+
+
+Funções estendidas
+
+
+
+fun ​ Int.isEven() = ​ this ​ % ​ 2 ​ == ​ 0
+
+print ( ​ ​ 2 ​ .isEven()) ​ // true
+
+fun ​ List<Int>.average() = ​ 1.0 ​ * sum() / ​ size
+
+print ( ​ listOf(​ 1 ​ , ​ 2 ​ , ​ 3 ​ , ​ 4 ​ ).average()) ​ // 2.5
+
+
+
+Exemplo de um código para sorteio das seis dezenas da sena ou Mega Sena:
+
+
+
+fun main() 
+
+{
+
+  for (j in 1..3) // Gerar 3 sequências de 06 dezenas.
+
+  {
+
+    println("Jogo ${j}: ")
+
+     
+
+   for (i in 1..6)
+
+    {
+
+    var sena = (1..60).random()
+
+    println(" ${sena} ")      
+
+    }
+
+  } 
+
+}
+
